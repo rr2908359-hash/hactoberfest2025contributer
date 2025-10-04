@@ -100,7 +100,7 @@ export default function SearchBox({ searchTerm, onSearchChange, contributions }:
           onChange={(e) => onSearchChange(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => searchTerm.length > 0 && suggestions.length > 0 && setShowSuggestions(true)}
-          className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
           <svg
@@ -143,13 +143,13 @@ export default function SearchBox({ searchTerm, onSearchChange, contributions }:
                     {suggestion.startsWith('tag:') && (
                       <>
                         <span className="text-gray-500">Tag:</span>{' '}
-                        <span className="font-medium">{suggestion.split(':')[1]}</span>
+                        <span className="font-medium text-gray-500">{suggestion.split(':')[1]}</span>
                       </>
                     )}
                     {suggestion.startsWith('author:') && (
                       <>
                         <span className="text-gray-500">Author:</span>{' '}
-                        <span className="font-medium">@{suggestion.split(':')[1]}</span>
+                        <span className="font-medium text-gray-500">@{suggestion.split(':')[1]}</span>
                       </>
                     )}
                     {!suggestion.startsWith('tag:') && !suggestion.startsWith('author:') && (
