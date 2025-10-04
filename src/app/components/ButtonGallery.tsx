@@ -124,7 +124,7 @@ export default function ButtonGallery({ contributions }: ButtonGalleryProps) {
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="text-sm px-3 py-1 border border-gray-200 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="text-sm px-3 py-1 border border-gray-200 rounded-full text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Types</option>
             <option value="react">React</option>
@@ -135,7 +135,7 @@ export default function ButtonGallery({ contributions }: ButtonGalleryProps) {
           <select
             value={selectedDifficulty}
             onChange={(e) => setSelectedDifficulty(e.target.value)}
-            className="text-sm px-3 py-1 border border-gray-200 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="text-sm px-3 py-1 border border-gray-200 rounded-full text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Levels</option>
             <option value="beginner">Beginner</option>
