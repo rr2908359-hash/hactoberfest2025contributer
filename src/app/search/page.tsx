@@ -39,7 +39,7 @@ interface ButtonContribution {
   importPath?: string;
 }
 
-const ProfileContent = () => {
+const SearchContent = () => {
   const searchParams = useSearchParams();
   const usernameParam = searchParams?.get('user');
   const { user, isLoggedIn } = useUser();
@@ -54,6 +54,8 @@ const ProfileContent = () => {
   const [buttonsPerPage] = useState(6); // Show 6 buttons per page
 
   
+
+  const [username, setUsername] = useState('');
 
   const fetchUserData = async (user: string) => {
     setLoading(true);
@@ -106,8 +108,6 @@ const ProfileContent = () => {
   const endIndex = startIndex + buttonsPerPage;
   const currentButtons = userContributions.slice(startIndex, endIndex);
 
-  
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     // Scroll to buttons section
@@ -121,22 +121,60 @@ const ProfileContent = () => {
     setCurrentPage(1);
   };
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (username.trim()) {
+      fetchUserData(username.trim());
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit(e);
+    }
+  };
+
+  const handleFetchUser = () => {
+    if(!username || username && username.length <= 0){
+      setError('Please enter a GitHub username');
+    } else {
+      fetchUserData(username.trim());
+    }
+  };
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        {/* Page Title and Error Display */}
-        <div className="text-center mb-2">
-          <h1 className="text-4xl font-bold text-[#1e2939] mb-2 mt-2">My Profile</h1>
-          
-          {error && (
-            <p className="text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg p-3 max-w-md mx-auto">
-              {error}
-            </p>
-          )}
+        <div className="grid justify-center mb-2 w-full">
+          <div className="flex bg-gray-800 rounded-lg overflow-hidden border border-gray-700 max-w-md w-full">
+            <input
+              type="text"
+              placeholder="Enter GitHub username"
+              className="flex-1 p-3 bg-transparent text-white placeholder-gray-400 focus:outline-none"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+            <button
+              onClick={handleFetchUser}
+              disabled={loading}
+              className="bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 text-white px-6 py-3 transition-colors duration-200 text-sm font-medium"
+            >
+              {loading ? 'Loading...' : 'Search'}
+            </button>
+          </div>
+          <div>
+            {error && (
+              <p className="text-red-400 text-center text-sm rounded-lg p-1 max-w-md mx-auto">
+                {error} 
+              </p>
+            )}
+          </div>
         </div>
 
         {userData && (
           <>
+            
             {/* User Profile Section */}
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-8 border border-gray-700 mb-8">
               <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
@@ -159,7 +197,7 @@ const ProfileContent = () => {
                   <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
                     <p className="text-purple-400 text-lg mb-4">@{userData.login}</p>
                   </a>
-
+                  
                   {userData.bio && (
                     <p className="text-gray-300 mb-4 max-w-2xl">{userData.bio}</p>
                   )}
@@ -338,7 +376,7 @@ const ProfileContent = () => {
                   Sign in with your GitHub account to view your contributions, or use the search bar to explore any GitHub user&apos;s button contributions.
                 </p>
                 <Link
-                  href="/login?redirect=/profile"
+                  href="/login?redirect=/search"
                   className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors duration-200 font-medium inline-block text-center"
                 >
                   Sign In with GitHub
@@ -361,7 +399,7 @@ const ProfileContent = () => {
   );
 };
 
-const ProfilePage = () => {
+const SearchPage = () => {
   return (
     <Suspense fallback={
       <div className="px-4 sm:px-6 lg:px-8">
@@ -375,9 +413,9 @@ const ProfilePage = () => {
         </div>
       </div>
     }>
-      <ProfileContent />
+      <SearchContent />
     </Suspense>
   );
 };
 
-export default ProfilePage;
+export default SearchPage;

@@ -1,6 +1,7 @@
 'use client';
 
 import { ButtonContribution } from '@/utils/buttonLoader';
+import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 
 // Component to handle HTML+CSS+JS buttons with proper script execution
@@ -140,14 +141,13 @@ export default function ButtonModal({ contribution, isOpen, onClose }: ButtonMod
           <div>
             <h2 className="text-2xl font-bold text-gray-900">{contribution.metadata.name}</h2>
             <p className="text-gray-600">
-              by <a 
-                href={`https://github.com/${contribution.metadata.author}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              by 
+              <Link
+                href={`/search?user=${contribution.metadata.author}`}
                 className="text-blue-600 hover:text-blue-800 hover:underline"
               >
                 @{contribution.metadata.author}
-              </a>
+              </Link>
             </p>
           </div>
           <button

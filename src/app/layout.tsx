@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 // Import global CSS styles
 import "./globals.css";
-import Navigation from "./components/Navigation";
+import Navigation from "@/app/components/Navigation";
+import { UserProvider } from "./context/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,12 +52,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900`}
       >
-        <div className="min-h-screen py-8">
-          <Navigation />
-          <main>
-            {children}
-          </main>
-        </div>
+        <UserProvider>
+          <div className="min-h-screen py-8">
+            <Navigation />
+            <main>
+              {children}
+            </main>
+          </div>
+        </UserProvider>
       </body>
     </html>
   );
