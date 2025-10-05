@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import ButtonShowcase from '../components/ButtonShowcase';
@@ -37,7 +37,7 @@ interface ButtonContribution {
   importPath?: string;
 }
 
-const ProfilePage = () => {
+const ProfileContent = () => {
   const searchParams = useSearchParams();
   const usernameParam = searchParams?.get('user');
   
@@ -328,6 +328,25 @@ const ProfilePage = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const ProfilePage = () => {
+  return (
+    <Suspense fallback={
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-white mb-6">Contributor Profile</h1>
+            <div className="animate-pulse">
+              <div className="h-4 bg-gray-700 rounded w-48 mx-auto"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }>
+      <ProfileContent />
+    </Suspense>
   );
 };
 
