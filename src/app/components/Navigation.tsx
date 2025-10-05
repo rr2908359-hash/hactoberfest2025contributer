@@ -5,14 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Suspense, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useUser } from '../context/UserContext';
-
-// Heroicons (outline set)
-import {
-  HomeIcon,
-  UserCircleIcon,
-  Bars3Icon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
+import { HomeIcon, UserCircleIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 type NavItem = {
   href: string;
@@ -41,11 +34,7 @@ function NavigationContent() {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      <nav
-        aria-label="Primary"
-        className="w-full bg-gray-900/80 backdrop-blur border-b border-gray-800"
-      >
-        {/* Container keeps content centered while nav spans full width */}
+      <nav className="bg-gray-900/80 backdrop-blur border-b border-gray-800">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="h-16 flex items-center justify-between">
             {/* Brand */}
@@ -54,13 +43,11 @@ function NavigationContent() {
               className="flex items-center gap-2 rounded-md focus-visible:ring-2 focus-visible:ring-purple-500/70 px-1"
             >
               <div className="h-6 w-6 rounded bg-gradient-to-br from-purple-500 to-indigo-500" />
-              <span className="text-white font-semibold tracking-tight">
-                ClickHub
-              </span>
+              <span className="text-white font-semibold tracking-tight">ClickHub</span>
               <span className="text-xs text-purple-300">2025</span>
             </Link>
 
-            {/* Desktop navigation */}
+            {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-1">
               {NAV_ITEMS.map(({ href, label, Icon }) => {
                 const active = activeMap[href];
@@ -68,14 +55,11 @@ function NavigationContent() {
                   <Link
                     key={href}
                     href={href}
-                    aria-current={active ? 'page' : undefined}
-                    className={`group relative inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm transition
-                      ${
-                        active
-                          ? 'text-white'
-                          : 'text-gray-300 hover:text-white hover:bg-gray-800'
-                      }
-                    `}
+                    className={`group relative inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm transition ${
+                      active
+                        ? 'text-white'
+                        : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                    }`}
                   >
                     <Icon
                       className={`h-5 w-5 ${
@@ -133,21 +117,17 @@ function NavigationContent() {
               aria-expanded={open}
               className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-white hover:bg-gray-800 focus-visible:ring-2 focus-visible:ring-purple-500/70"
             >
-              {open ? (
-                <XMarkIcon className="h-6 w-6" />
-              ) : (
-                <Bars3Icon className="h-6 w-6" />
-              )}
+              {open ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* ✅ Mobile Menu (Fixed visibility + smooth open/close) */}
         <div
           id="mobile-menu"
-          className={`lg:hidden border-t border-gray-800 overflow-hidden transition-opacity duration-200 ease-out ${
-            open ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
+          className={`lg:hidden bg-gray-900 border-t border-gray-800 transition-all duration-300 ease-in-out ${
+            open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+          } overflow-hidden`}
         >
           <div className="px-4 sm:px-6 lg:px-8 py-3 space-y-2">
             {NAV_ITEMS.map(({ href, label, Icon }) => {
@@ -157,14 +137,11 @@ function NavigationContent() {
                   key={href}
                   href={href}
                   onClick={() => setOpen(false)}
-                  aria-current={active ? 'page' : undefined}
-                  className={`flex items-center gap-3 rounded-md px-3 py-3 text-sm transition
-                    ${
-                      active
-                        ? 'bg-purple-600 text-white'
-                        : 'text-gray-300 hover:text-white hover:bg-gray-800'
-                    }
-                  `}
+                  className={`flex items-center gap-3 rounded-md px-3 py-3 text-sm transition ${
+                    active
+                      ? 'bg-purple-600 text-white'
+                      : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  }`}
                 >
                   <Icon className="h-5 w-5" />
                   <span>{label}</span>
@@ -172,6 +149,7 @@ function NavigationContent() {
               );
             })}
 
+            {/* External Link */}
             <a
               href="https://github.com/MRIEnan/clickhub_hactoberfest2025/blob/main/CONTRIBUTING.md"
               target="_blank"
@@ -190,7 +168,7 @@ function NavigationContent() {
             </a>
 
             {isLoggedIn ? (
-              <div className="pt-3 mt-3 border-top border-gray-800 space-y-2">
+              <div className="pt-3 mt-3 border-t border-gray-800 space-y-2">
                 <Link
                   href={`/profile?user=${user!.login}`}
                   onClick={() => setOpen(false)}
