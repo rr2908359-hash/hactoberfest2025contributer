@@ -38,3 +38,5 @@ Combines modern UI magnetism and pulse feedback with the color and fun of Hackto
 ---
 
 Happy Coding and Happy Hacktoberfest! ⚡🧲
+
+ <!-- Magnetic Pulse Edge Button by @Mystify7777 -->
