@@ -3,6 +3,7 @@
 import { ButtonContribution } from '@/utils/buttonLoader';
 import { useState, useEffect, useRef } from 'react';
 import ButtonModal from './ButtonModal';
+import Link from 'next/link';
 
 // Component to handle GitHub profile images with fallback
 function ProfileImage({ author }: { author: string }) {
@@ -271,7 +272,6 @@ export default function ButtonShowcase({ contribution }: ButtonShowcaseProps) {
     <div className="relative group">
       <div 
         className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 cursor-pointer"
-        onClick={handleViewCode}
       >
         {/* Button Preview - not clickable */}
         <div 
@@ -285,26 +285,20 @@ export default function ButtonShowcase({ contribution }: ButtonShowcaseProps) {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             {/* GitHub Profile Image */}
-            <a 
-              href={`https://github.com/${contribution.metadata.author}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={`/search?user=${contribution.metadata.author}`}
               className="flex-shrink-0 transition-transform duration-200 hover:scale-105"
-              onClick={(e) => e.stopPropagation()}
-            >
+              >
               <ProfileImage author={contribution.metadata.author} />
-            </a>
+            </Link>
             
             {/* GitHub Username */}
-            <a 
-              href={`https://github.com/${contribution.metadata.author}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={`/search?user=${contribution.metadata.author}`}
               className="text-sm text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200"
-              onClick={(e) => e.stopPropagation()}
             >
               @{contribution.metadata.author}
-            </a>
+            </Link>
           </div>
           
           {/* Type and Difficulty */}
