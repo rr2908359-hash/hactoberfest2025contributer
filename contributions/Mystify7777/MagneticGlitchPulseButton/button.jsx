@@ -31,7 +31,7 @@ export default function MagneticPulseButton() {
 
   return (
     <div
-      className="relative flex justify-center items-center h-48"
+      className="relative flex justify-center items-center h-28"
       onMouseMove={handleMagnet}
       onMouseLeave={resetMagnet}
     >
