@@ -2,7 +2,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 
-export default function GlowingEdgeButton({ text = "Click me", onClick }) {
+export default function button({ text = "Click me", onClick }) {
   const controls = useAnimation();
 
   useEffect(() => {
